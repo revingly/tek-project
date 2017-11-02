@@ -1,0 +1,24 @@
+extends layout
+include mixins/_post
+
+block content
+  // Main content
+  section.content.container-fluid
+    .col-md-8.col-md-offset-2
+      .message_form
+        form(method="post")
+          .form-group
+            textarea.form-control(name="text" required placeholder="write something")
+          .form-group
+              each tag in tags
+                input(type="checkbox" name='tags' value=tag._id id=tag.name) 
+                label(for=tag.name) #{tag.name}
+          .form-group
+            input.form-control.btn.btn-primary(type='submit' value='post')
+      .feed
+        if posts
+          -var time
+          each post in posts
+            - time = h.moment(post.createdAt).fromNow()
+            +post(post)
+              

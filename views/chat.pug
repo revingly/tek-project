@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	.col-sm-2.left__side
+		p left side
+		p connected people
+	.col-sm-8.main__area
+		.chat__messages
+			if messages
+				each message in messages
+					p #{message.messageText} -- written by #{message.author.name}
+	.col-sm-2.right__side
+		p right side
+		p groups
+
+block chat_footer
+	.message_form
+		form(method="post")
+			.form-group
+				textarea.form-control(name="message")
+			.form-group
+				input.form-control(type='submit' value='post')

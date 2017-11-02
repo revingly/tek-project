@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	form.col-md-6.col-md-offset-3(method="post")
+		.form-group
+			label(for='content') message
+			textarea.form-control(name='content')
+		.form-group
+			select.form-control(name='choice')
+				option(value='suggestion') suggestion
+				option(value='reservation') reservation
+				option(value='complain') complain
+				option(value='else') something else
+		.form-group
+			input.form-control.btn.btn-primary(type='submit' value='send')
