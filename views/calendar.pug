@@ -1,0 +1,106 @@
+extends layout
+block append css
+  link(href="fullcalendar/dist/fullcalendar.min.css" rel="stylesheet")
+block content
+  section.content-header
+      h1
+        | Calendar
+      ol.breadcrumb
+        li
+          a(href="#")
+            i.fa.fa-dashboard
+            |  Home
+        li.active Calendar
+  // Main content
+  section.content
+    .row
+      .col-md-3
+        .box.box-solid
+          .box-header.with-border
+            h4.box-title Draggable Events
+          .box-body
+            // the events
+            #external-events
+              .external-event.bg-green Lunch
+              .external-event.bg-yellow Go home
+              .external-event.bg-aqua Do homework
+              .external-event.bg-light-blue Work on UI design
+              .external-event.bg-red Sleep tight
+              .checkbox
+                label(for="drop-remove")
+                  input#drop-remove(type="checkbox")
+                  |                     remove after drop
+          // /.box-body
+        // /. box
+        .box.box-solid
+          .box-header.with-border
+            h3.box-title Create Event
+          .box-body
+            .btn-group(style="width: 100%; margin-bottom: 10px;")
+              // <button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>
+              ul#color-chooser.fc-color-picker
+                li
+                  a.text-aqua(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-blue(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-light-blue(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-teal(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-yellow(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-orange(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-green(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-lime(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-red(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-purple(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-fuchsia(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-muted(href="#")
+                    i.fa.fa-square
+                li
+                  a.text-navy(href="#")
+                    i.fa.fa-square
+            // /btn-group
+            .input-group
+              input#new-event.form-control(type="text", placeholder="Event Title")
+              .input-group-btn
+                button#add-new-event.btn.btn-primary.btn-flat(type="button") Add
+              // /btn-group
+            // /input-group
+      // /.col
+      .col-md-9
+        .box.box-primary
+          .box-body.no-padding
+            // THE CALENDAR
+            #calendar
+          // /.box-body
+        // /. box
+      // /.col
+    // /.row
+  // /.content
+
+block append js
+  script(src="/jquery-ui/jquery-ui.min.js")
+  script(src="/jquery-slimscroll/jquery.slimscroll.min.js")
+  script(src="/fastclick/lib/fastclick.js")
+  script(src="/moment/moment.js")
+  script(src="/fullcalendar/dist/fullcalendar.min.js")
+  script(src="/js/script.js")

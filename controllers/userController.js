@@ -5,18 +5,19 @@ const Email = mongoose.model('Email');
 const Tag = mongoose.model('Tag');
 
 exports.index = async (req, res) => {
-	const postPromise = Post.find();
+	const postPromise = Post.find().sort('-createdAt');
 	const tagsPromise = Tag.find();
 	const [posts, tags] = await Promise.all([postPromise, tagsPromise]);
 	res.render('index', {'title': 'homepage', posts, tags});
 };
 
-exports.register = (req, res, next) => {
+exports.register = (req, res) => {
 	const user = new User({ email: req.body.email, name: req.body.name });
+	user.tags = req.body.tags;
 	User.register(user, req.body.password, function(err){
 		if(err) return res.send(err);
 		//res.send('ok');
-		next()
+		res.redirect('back')
 	});
 };
 
@@ -58,11 +59,54 @@ exports.sendEmail = (req, res) => {
 	});
 }
 
-//just for testing functions
-exports.gettesting = async (req, res) => {
-	res.json('testin');
+//search
+exports.search = async (req, res) => {
+	const posts = await Post.find({
+		$text: {
+			$search: req.query.q
+		}
+	});
+	res.json(posts);
+}
+
+exports.getTags = async (req, res) => {
+	const tags = await Tag.find();
+	res.render('tags', {tags});
 };
 
-exports.posttesting = async (req, res) => {
-	res.json({});
-};
+exports.createTag = (req, res) => {
+	const tag = new Tag(req.body);
+	tag.save(function(err){
+		if(err) return res.send(err);
+		res.redirect('back');
+	})
+}
+
+//library
+exports.getBooks = (req, res) => {
+	res.render('books', {title: "library"});
+}
+
+//courses controls
+exports.getCourses = async (req, res) => {
+	//const courses = await Course.find({});
+	res.render('courses', {title: "courses"});
+}
+
+exports.createCourse = async (req, res) => {
+	const course = new Course(req.body);
+	await course.save();
+	res.redirect('back');
+}
+
+//reactions
+exports.like = async (req, res) => {
+	const likes = req.user.likes.map(obj => obj.toString());
+  const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
+  const user = await User
+  .findByIdAndUpdate(req.user._id,
+    { [operator]: { likes: req.params.id }},
+    { new: true }
+  );
+  res.json(user);
+}

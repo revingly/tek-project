@@ -11,21 +11,24 @@ mixin post(post)
           shared #{time}
       .box-tools
         each tag in post.tags
-          span.label.label-success #{tag.name}
+          span.label.label-success #{tag}
        
     .box-body
-      p #{post.text}
+      p.markdown-content= post.text
       img.img-responsive.pad(src='dist/img/photo2.png')
-      button.btn.btn-default.btn-xs
+      - const userlikes = user.likes.map(obj => obj.toString())
+      - const likeClass = userlikes.includes(post._id.toString()) ? 'btn-success' : ''
+      button.btn.btn-default.btn-xs(name="like" data-id= post._id class= likeClass)
         i.fa.fa-thumbs-o-up
         | &nbsp; like
-      button.btn.btn-default.btn-xs
+      button.btn.btn-default.btn-xs(name="dislike" data-id= post._id)
         i.fa.fa-thumbs-o-down
         | &nbsp; dislike
-    +comment(comments)
+    if post.comments
+      each comment in post.comments
+        +comment(comment)
     .box-footer
       form(method="post" action=`/comment/${post._id}`)
         img.img-circle.img-responsive.img-sm(src='dist/img/user3-128x128.jpg')
         .img-push
           input.form-control.input-sm(type='text' name='content' placeholder='write a comment')
-          input.btn.btn-primary(type='submit' value='ok')

@@ -9,10 +9,11 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const userSchema = new Schema({
 	email: {
 		type: String,
-		required: 'please supply an email',
-		trim: true,
-		unique: true,
-		lowercase: true
+    unique: true,
+    lowercase: true,
+    trim: true,
+    validate: [validator.isEmail, 'Invalid Email Address'],
+    required: 'Please Supply an email address'
 	},
 	name: {
 		type: String,
@@ -21,13 +22,25 @@ const userSchema = new Schema({
 		unique: true,
 		lowercase: true
 	},
-	resetPasswordToken: String,
-  resetPasswordExpires: Date,
   tags: [
-  {type: mongoose.Schema.ObjectId, ref: 'Tag'}
+  {type: String, ref: 'Tag'}
   ],
-  roles: [{type: String}]
+  roles: [{type: String}],
+  status: {
+    type: String,
+    default: 'active'
+  },
+  points: {
+    type: Number,
+    default: 1
+  },
+  likes: [
+    { type: mongoose.Schema.ObjectId, ref: 'Post'}
+  ],
 
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
+  apikey: String
 });
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });

@@ -9,8 +9,8 @@ const errorHandlers = require('../handlers/errorHandlers');
 
 // Do work here
 router.get('/', authController.isLoggedIn, errorHandlers.catchErrors(userController.index));
-router.post('/', postController.createPost);
-
+router.post('/', errorHandlers.catchErrors(postController.createPost));
+router.get('/events', authController.isLoggedIn, (req, res) => res.render('calendar'));
 router.get('/chat', authController.isLoggedIn, userController.chat);
 
 router.get('/profile', userController.profile);
@@ -34,8 +34,23 @@ router.post('/contact', userController.sendEmail);
 
 router.post('/comment/:id', errorHandlers.catchErrors(commentController.createComment));
 
-//testing route
-router.get('/test/:pr', userController.gettesting);
-router.post('/test/:pr', userController.posttesting);
+router.get('/calendar', (req, res) => { res.render('calendar')});
+router.get('/mail', (req, res) => { res.render('mail')});
+
+//tags routes
+router.get('/tags', userController.getTags);
+router.post('/tags', userController.createTag);
+
+//courses routes
+router.get('/courses', userController.getCourses);
+
+// library routes
+router.get('/library', userController.getBooks);
+
+//search
+router.get('/search', errorHandlers.catchErrors(userController.search));
+
+//reactions api
+router.post('/api/post/:id/like', errorHandlers.catchErrors(userController.like));
 
 module.exports = router;

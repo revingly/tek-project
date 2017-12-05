@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  section.content-header
+      h1
+        | Tags
+      ol.breadcrumb
+        li
+          a(href="#")
+            i.fa.fa-dashboard
+            |  Home
+        li.active Mailbox
+  section.content
+    button.btn.btn-primary(data-toggle="modal" data-target="#myModal") new tag
+    
+    hr
+    if tags.length > 0
+      each tag in tags
+        p #{tag._id}
+
+  #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
+      .modal-dialog(role="document")
+        .modal-content
+          .modal-header
+            button.close(type="button", data-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true") ×
+            h4#myModalLabel.modal-title Create new tag
+          .modal-body
+            form(method="post")
+              .form-group
+                input.form-control(type="text" placeholder="create a new tag" name="_id")
+                input.form-control.btn.btn-primary(type="submit")
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Close

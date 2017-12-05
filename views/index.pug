@@ -5,20 +5,55 @@ block content
   // Main content
   section.content.container-fluid
     .col-md-8.col-md-offset-2
-      .message_form
-        form(method="post")
-          .form-group
-            textarea.form-control(name="text" required placeholder="write something")
-          .form-group
-              each tag in tags
-                input(type="checkbox" name='tags' value=tag._id id=tag.name) 
-                label(for=tag.name) #{tag.name}
-          .form-group
-            input.form-control.btn.btn-primary(type='submit' value='post')
+      .box.box-info
+        .box-header
+          .box-title Write Something
+          .pull-right.box-tools
+            a.btn.btn-sm(href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target='_blank') markdown code
+            button.btn.btn-sm.btn-info(data-toggle="tooltip" data-widget="collapse" title="collapse")
+              i.fa.fa-minus
+        .box-body.pad
+          form(method="post")
+            .form-group
+              textarea.form-control(name="text" rows="5" cols="40")
+            .form-group
+              select.form-control.select2(multiple="multiple" data-placeholder='select a tag' 
+              name="tags")
+                each tag in tags
+                  option(name='tags' id=tag._id) #{tag._id}
+            .form-group
+              input.form-control.btn.btn-primary(type='submit' value='post')
       .feed
         if posts
           -var time
           each post in posts
             - time = h.moment(post.createdAt).fromNow()
             +post(post)
-              
+  // Modal
+  #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") ×
+          h4#myModalLabel.modal-title Modal title
+        .modal-body
+          
+        .modal-footer
+          button.btn.btn-default(type="button", data-dismiss="modal") Close
+          button.btn.btn-primary(type="button") Save changes
+
+block append js
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.7/marked.min.js")
+  script(src="/select2/dist/js/select2.full.min.js")
+  script.
+    $(function () {
+      $('.markdown-content').each(function(){
+        var post = $(this).text();
+        var markedpost = marked(post);
+        $(this).html(markedpost);
+      });
+      $('.select2').select2();
+    });
+  script(src="/js/reaction.js")
+  script(src="https://unpkg.com/axios/dist/axios.min.js")

@@ -1,0 +1,193 @@
+extends layout
+
+block content
+  section.content-header
+      h1
+        | Mailbox
+      ol.breadcrumb
+        li
+          a(href="#")
+            i.fa.fa-dashboard
+            |  Home
+        li.active Mailbox
+  // Main content
+  section.content
+    .row
+      .col-md-3
+        a.btn.btn-primary.btn-block.margin-bottom(href="compose.html") Compose
+        .box.box-solid
+          .box-header.with-border
+            h3.box-title Folders
+            .box-tools
+              button.btn.btn-box-tool(type="button", data-widget="collapse")
+                i.fa.fa-minus
+          .box-body.no-padding
+            ul.nav.nav-pills.nav-stacked
+              li.active
+                a(href="#")
+                  i.fa.fa-inbox
+                  |  Inbox
+                  span.label.label-primary.pull-right 4
+              li
+                a(href="#")
+                  i.fa.fa-envelope-o
+                  |  Sent
+              li
+                a(href="#")
+                  i.fa.fa-file-text-o
+                  |  Drafts
+              li
+                a(href="#")
+                  i.fa.fa-filter
+                  |  Junk 
+                  span.label.label-warning.pull-right 1
+              li
+                a(href="#")
+                  i.fa.fa-trash-o
+                  |  Trash
+          // /.box-body
+        // /. box
+        .box.box-solid
+          .box-header.with-border
+            h3.box-title Labels
+            .box-tools
+              button.btn.btn-box-tool(type="button", data-widget="collapse")
+                i.fa.fa-minus
+          .box-body.no-padding
+            ul.nav.nav-pills.nav-stacked
+              li
+                a(href="#")
+                  i.fa.fa-circle-o.text-red
+                  |  Important
+              li
+                a(href="#")
+                  i.fa.fa-circle-o.text-yellow
+                  |  Promotions
+              li
+                a(href="#")
+                  i.fa.fa-circle-o.text-light-blue
+                  |  Social
+          // /.box-body
+        // /.box
+      // /.col
+      .col-md-9
+        .box.box-primary
+          .box-header.with-border
+            h3.box-title Inbox
+            .box-tools.pull-right
+              .has-feedback
+                input.form-control.input-sm(type="text", placeholder="Search Mail")
+                span.glyphicon.glyphicon-search.form-control-feedback
+            // /.box-tools
+          // /.box-header
+          .box-body.no-padding
+            .mailbox-controls
+              // Check all button
+              button.btn.btn-default.btn-sm.checkbox-toggle(type="button")
+                i.fa.fa-square-o
+              .btn-group
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-trash-o
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-reply
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-share
+              // /.btn-group
+              button.btn.btn-default.btn-sm(type="button")
+                i.fa.fa-refresh
+              .pull-right
+                | 1-50/200
+                .btn-group
+                  button.btn.btn-default.btn-sm(type="button")
+                    i.fa.fa-chevron-left
+                  button.btn.btn-default.btn-sm(type="button")
+                    i.fa.fa-chevron-right
+                // /.btn-group
+              // /.pull-right
+            .table-responsive.mailbox-messages
+              table.table.table-hover.table-striped
+                tbody
+                  tr
+                    td
+                      input(type="checkbox")
+                    td.mailbox-star
+                      a(href="#")
+                        i.fa.fa-star.text-yellow
+                    td.mailbox-name
+                      a(href="read-mail.html") Alexander Pierce
+                    td.mailbox-subject
+                      b AdminLTE 2.0 Issue
+                      |  - Trying to find a solution to this problem...
+                    td.mailbox-attachment
+                    td.mailbox-date 5 mins ago
+                  tr
+                    td
+                      input(type="checkbox")
+                    td.mailbox-star
+                      a(href="#")
+                        i.fa.fa-star-o.text-yellow
+                    td.mailbox-name
+                      a(href="read-mail.html") Alexander Pierce
+                    td.mailbox-subject
+                      b AdminLTE 2.0 Issue
+                      |  - Trying to find a solution to this problem...
+                    td.mailbox-attachment
+                      i.fa.fa-paperclip
+                    td.mailbox-date 28 mins ago
+                  tr
+                    td
+                      input(type="checkbox")
+                    td.mailbox-star
+                      a(href="#")
+                        i.fa.fa-star-o.text-yellow
+                    td.mailbox-name
+                      a(href="read-mail.html") Alexander Pierce
+                    td.mailbox-subject
+                      b AdminLTE 2.0 Issue
+                      |  - Trying to find a solution to this problem...
+                    td.mailbox-attachment
+                      i.fa.fa-paperclip
+                    td.mailbox-date 11 hours ago
+                  tr
+                    td
+                      input(type="checkbox")
+                    td.mailbox-star
+                      a(href="#")
+                        i.fa.fa-star.text-yellow
+                    td.mailbox-name
+                      a(href="read-mail.html") Alexander Pierce
+                    td.mailbox-subject
+                      b AdminLTE 2.0 Issue
+                      |  - Trying to find a solution to this problem...
+                    td.mailbox-attachment
+                    td.mailbox-date 15 hours ago
+              // /.table
+            // /.mail-box-messages
+          // /.box-body
+          .box-footer.no-padding
+            .mailbox-controls
+              // Check all button
+              button.btn.btn-default.btn-sm.checkbox-toggle(type="button")
+                i.fa.fa-square-o
+              .btn-group
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-trash-o
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-reply
+                button.btn.btn-default.btn-sm(type="button")
+                  i.fa.fa-share
+              // /.btn-group
+              button.btn.btn-default.btn-sm(type="button")
+                i.fa.fa-refresh
+              .pull-right
+                | 1-50/200
+                .btn-group
+                  button.btn.btn-default.btn-sm(type="button")
+                    i.fa.fa-chevron-left
+                  button.btn.btn-default.btn-sm(type="button")
+                    i.fa.fa-chevron-right
+                // /.btn-group
+              // /.pull-right
+        // /. box
+      // /.col
+    // /.row

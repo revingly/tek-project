@@ -3,10 +3,11 @@ mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
 const tagSchema = new Schema({
-	name: {
+	_id: {
 		type: String,
 		required: 'please supply a name',
-		trim: true
+		trim: true,
+    unique: true
 	},
 	createdAt: Date
 });

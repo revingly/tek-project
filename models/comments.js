@@ -21,4 +21,13 @@ const commentSchema = new Schema({
   created: Date,
 });
 
+
+function autoPopulate(next){
+	this.populate('author', 'name');
+	next();
+};
+
+commentSchema.pre('find', autoPopulate);
+commentSchema.pre('findOne', autoPopulate);
+
 module.exports = mongoose.model('Comment', commentSchema);

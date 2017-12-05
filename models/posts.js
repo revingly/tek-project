@@ -14,16 +14,26 @@ const postSchema = new Schema({
 		ref: 'User'
 	},
 	tags: [{
-		type: mongoose.Schema.ObjectId,
+		type: String,
 		ref: 'Tag',
 		required: 'please supply a tag'
 	}],
 	createdAt: Date
+},
+	{
+  toJSON:{ virtual: true},
+  toObject: {virtual: true}
+});
+
+postSchema.virtual('comments', {
+	ref: 'Comment', // model to link to
+	localField: '_id', // id of the post
+	foreignField: 'post' // field name of the post field in the review model
 });
 
 
 function autoPopulate(next){
-	this.populate('author tags');
+	this.populate('author comments');
 	next();
 };
 
