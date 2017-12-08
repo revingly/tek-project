@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const http = require('http');
-const socketio = require('socket-io');
+const socketio = require('./socketio');
 
 // Make sure we are running node 7.6+
 const [major, minor] = process.versions.node.split('.').map(parseFloat);
@@ -32,6 +32,7 @@ const Course = require('./models/courses');
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 server = http.createServer(app);
+io = socketio.listen(server);
 
 server.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);

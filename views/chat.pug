@@ -2,3 +2,8 @@ extends layout
 
 block content
 	
+
+block append js
+  script(src="/socket.io/socket.io.js")
+  script.
+    var socket = io()
