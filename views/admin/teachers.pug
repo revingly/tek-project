@@ -1,4 +1,38 @@
 extends ../layout
 
 block content
-	h2 teachers page
+  section.container-fluid
+    h2 teachers page
+    //- if teachers
+    .box
+      .box-header
+        | teachers table
+      .box-body 
+        table.table.table-hover()
+          tbody
+              th name
+              th email
+              th options
+          each teacher in teachers
+            tr
+              td #{teacher.name}
+              td #{teacher.email}
+              td 
+                if teacher.status == 'active'
+                  form(method='post' action=`teachers/${teacher._id}/lock` style="display: inline-block")
+                    input(type='submit' class="btn btn-sm" value='lock')
+                else
+                    form(method='post' action=`teachers/${teacher._id}/unlock`)
+                      input(type='submit' class="btn btn-sm" value='unlock')
+                button(data-toggle="modal" class="btn btn-sm" data-target="#myModal") edit
+
+                div(class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel")
+                  div(class="modal-dialog" role="document")
+                    .modal-content
+                      .modal-header
+                        button(type="button" class="close" data-dismiss="modal" aria-label="Close") x
+                        h4 edit teacher
+                      .modal-body
+                        p body
+                      .modal-footer
+                        button(type="button" class="btn btn-default" data-dismiss="modal") close

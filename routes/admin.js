@@ -5,16 +5,16 @@ const authController = require('../controllers/authController');
 const errorHandlers = require('../handlers/errorHandlers');
 const userController = require('../controllers/userController');
 
-router.get('/',  adminController.dashboard);
-router.get('/students',  adminController.getStudents);
-router.post('/students/:id/lock', errorHandlers.catchErrors(adminController.lockStudent));
-router.post('/students/:id/unlock', errorHandlers.catchErrors(adminController.unlockStudent));
-router.post('/students/:id/delete', errorHandlers.catchErrors(adminController.deleteStudent));
-router.post('/students/:id/edit', adminController.updateStudent);
-router.post('/students', userController.register);
-router.get('/emails',  adminController.getEmails);
-router.get('/teachers',  adminController.getTeachers);
-router.get('/events',  adminController.getEvents);
+router.get('/', authController.isLoggedIn,  adminController.dashboard);
+router.get('/students', authController.isLoggedIn,   adminController.getStudents);
+router.post('/students/:id/lock', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.lockStudent));
+router.post('/students/:id/unlock', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.unlockStudent));
+router.post('/students/:id/delete', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.deleteStudent));
+router.post('/students/:id/edit', authController.isLoggedIn,  adminController.updateStudent);
+router.post('/students', authController.isLoggedIn,  userController.register);
+router.get('/emails', authController.isLoggedIn,   adminController.getEmails);
+router.get('/teachers', authController.isLoggedIn,   adminController.getTeachers);
+router.get('/events', authController.isLoggedIn,   adminController.getEvents);
 
 
 module.exports = router;

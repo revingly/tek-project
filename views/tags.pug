@@ -1,22 +1,21 @@
 extends layout
 
 block content
-  section.content-header
-      h1
-        | Tags
-      ol.breadcrumb
-        li
-          a(href="#")
-            i.fa.fa-dashboard
-            |  Home
-        li.active Mailbox
-  section.content
+  section.container-fluid
+    h1 Tags
     button.btn.btn-primary(data-toggle="modal" data-target="#myModal") new tag
-    
-    hr
-    if tags.length > 0
-      each tag in tags
-        p #{tag._id}
+    .box
+      .box-body 
+        table.table.table-hover()
+          tbody
+              th name
+              th options
+          if tags.length > 0
+            each tag in tags
+              tr
+                td #{tag._id}
+                td delete | edit
+
 
   #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
       .modal-dialog(role="document")

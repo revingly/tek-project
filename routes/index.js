@@ -13,8 +13,8 @@ router.post('/', errorHandlers.catchErrors(postController.createPost));
 router.get('/events', authController.isLoggedIn, (req, res) => res.render('calendar'));
 router.get('/chat', authController.isLoggedIn, userController.chat);
 
-router.get('/profile', userController.profile);
-router.post('/profile', userController.update);
+router.get('/profile', authController.isLoggedIn, userController.profile);
+router.post('/profile', authController.isLoggedIn, userController.update);
 
 router.get('/login', (req, res) => {
 	res.render('login', {'title': 'login'});
@@ -29,26 +29,26 @@ router.get('/register', (req, res) => {
 
 router.post('/register', userController.register, authController.login);
 
-router.get('/contact', userController.contact);
-router.post('/contact', userController.sendEmail);
+router.get('/contact', authController.isLoggedIn, userController.contact);
+router.post('/contact', authController.isLoggedIn, userController.sendEmail);
 
 router.post('/comment/:id', errorHandlers.catchErrors(commentController.createComment));
 
-router.get('/calendar', (req, res) => { res.render('calendar')});
-router.get('/mail', (req, res) => { res.render('mail')});
+router.get('/calendar', authController.isLoggedIn, (req, res) => { res.render('calendar')});
+router.get('/mail', authController.isLoggedIn, (req, res) => { res.render('mail')});
 
 //tags routes
-router.get('/tags', userController.getTags);
-router.post('/tags', userController.createTag);
+router.get('/tags', authController.isLoggedIn, userController.getTags);
+router.post('/tags', authController.isLoggedIn, userController.createTag);
 
 //courses routes
-router.get('/courses', userController.getCourses);
+router.get('/courses', authController.isLoggedIn, userController.getCourses);
 
 // library routes
-router.get('/library', userController.getBooks);
+router.get('/library', authController.isLoggedIn, userController.getBooks);
 
 //search
-router.get('/search', errorHandlers.catchErrors(userController.search));
+router.get('/search', authController.isLoggedIn,  errorHandlers.catchErrors(userController.search));
 
 //reactions api
 router.post('/api/post/:id/like', errorHandlers.catchErrors(userController.like));
