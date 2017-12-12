@@ -11,16 +11,6 @@ exports.index = async (req, res) => {
 	res.render('index', {'title': 'homepage', posts, tags});
 };
 
-exports.register = (req, res) => {
-	const user = new User({ email: req.body.email, name: req.body.name });
-	user.tags = req.body.tags;
-	User.register(user, req.body.password, function(err){
-		if(err) return res.send(err);
-		//res.send('ok');
-		res.redirect('back')
-	});
-};
-
 exports.chat = (req, res) => {
 	res.render('chat');
 }

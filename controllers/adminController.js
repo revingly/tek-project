@@ -3,9 +3,25 @@ const Tag = mongoose.model('Tag');
 const User = mongoose.model('User');
 const Message = mongoose.model('Message');
 const Course = mongoose.model('Course');
+const Book = mongoose.model('Book');
 
 exports.dashboard = (req, res) => {
 	res.render('admin/dashboard');
+};
+
+exports.register = async (req, res) => {
+	const tags = await Tag.find();
+	res.render('admin/user', {tags});
+};
+
+exports.createUser = (req, res) => {
+	const user = new User({ email: req.body.email, name: req.body.name });
+	user.tags = req.body.tags;
+	User.register(user, req.body.password, function(err){
+		if(err) return res.send(err);
+		//res.send('ok');
+		res.redirect('back')
+	});
 };
 
 exports.getStudents = async (req, res) => {
@@ -49,3 +65,36 @@ exports.updateStudent = async (req, res) => {
 	res.send('updated');
 };
 
+//books
+exports.getBooks = async (req, res) => {
+	const books = await Book.find();
+	res.render('admin/books', {title: 'books', books});
+};
+
+exports.createBook = (req, res) => {
+	const book = new Book(req.body);
+	book.save()
+	.then(book => {
+		res.redirect('back');
+	})
+	.catch(err => {
+		res.send(err);
+	});
+};
+
+//courses
+exports.getCourses = async (req, res) => {
+	const courses = await Course.find();
+	res.render('admin/courses', {title: 'courses', courses});
+};
+
+exports.createCourse = (req, res) => {
+	const course = new Course(req.body);
+	course.save()
+	.then(crs => {
+		res.redirect('back');
+	})
+	.catch(err => {
+		res.send(err);
+	});
+};

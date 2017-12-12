@@ -20,20 +20,21 @@ mongoose.connection.on('error', (err) => {
 });
 
 // import all the models so we can call them from the mongoose instance later
-const User = require('./models/users');
-const Tag = require('./models/tags');
-const Message = require('./models/messages');
-const Post = require('./models/posts');
-const Email = require('./models/emails');
-const Comment = require('./models/comments');
-const Course = require('./models/courses');
-
+require('./models/users');
+require('./models/tags');
+require('./models/messages');
+require('./models/posts');
+require('./models/emails');
+require('./models/comments');
+require('./models/courses');
+require('./models/books');
 // Start our app!
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 server = http.createServer(app);
-io = socketio.listen(server);
 
 server.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
+
+io = socketio.listen(server);

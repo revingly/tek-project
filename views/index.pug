@@ -4,6 +4,13 @@ include mixins/_post
 block content
   // Main content
   section.content.container-fluid
+    if locals.flashes
+      .container
+        - const categories = Object.keys(locals.flashes)
+          each category in categories
+            each message in flashes[category]
+              .alert.alert-danger
+                p= message
     .col-md-8.col-md-offset-2
       .box.box-info
         .box-header

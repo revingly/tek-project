@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  section.container-fluid
+    form(method="post")
+      .form-group
+        label(for="name") name
+        input(type="text" name="name")
+      .form-group
+        label(for="uuid") uuid
+        input(type="text" name="uuid")
+      .form-group
+        label(for="author") author
+        input(type="text" name="author")
+      .form-group
+        label(for="nbrcopies") number of copies
+        input(type="text" name="numberOfCopies")
+      .form-group
+        input(type="submit" value="save")

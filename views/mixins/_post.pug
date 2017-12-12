@@ -12,6 +12,8 @@ mixin post(post)
       .box-tools
         each tag in post.tags
           span.label.label-success #{tag}
+        button.btn.btn-sm.btn-info(data-toggle="tooltip" data-widget="collapse" title="collapse")
+          i.fa.fa-minus
        
     .box-body
       p.markdown-content= post.text

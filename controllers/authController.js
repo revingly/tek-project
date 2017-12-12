@@ -27,7 +27,7 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.isAdmin = (req, res, next) => {
-  if (req.user && req.user.role == "admin") return next();
+  if (req.user && req.user.tags.includes("admin")) return next();
   req.flash('error', 'not allowed to see this page');
   res.redirect('/');
 };

@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .container-fluid
+    form(method="post")
+      .form-group
+        label(for='email') email
+        input(type='email' name='email')
+      .form-group
+        label(for='name') name
+        input(type='text' name='name')
+      .form-group  
+        label(for='password') password
+        input(type='password' name='password')
+      .form-group
+        select.form-control.select2(multiple="multiple" data-placeholder='select a tag' 
+        name="tags")
+          each tag in tags
+            option(name='tags' id=tag._id) #{tag._id}
+      .form-group
+        input.form-control.btn.btn-primary(type='submit' value='post')

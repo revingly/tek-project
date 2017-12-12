@@ -23,12 +23,6 @@ router.post('/login', authController.login);
 
 router.get('/logout', authController.logout);
 
-router.get('/register', (req, res) => {
-	res.render('register', {'title': 'register'});
-});
-
-router.post('/register', userController.register, authController.login);
-
 router.get('/contact', authController.isLoggedIn, userController.contact);
 router.post('/contact', authController.isLoggedIn, userController.sendEmail);
 

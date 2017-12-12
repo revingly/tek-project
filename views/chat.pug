@@ -1,9 +1,12 @@
 extends layout
 
 block content
-	
+  .container-fluid
+    h3 chat
+    form.message(action="")
+      input(type="text" name="message")
+      input(type="submit" value="send")
 
 block append js
   script(src="/socket.io/socket.io.js")
-  script.
-    var socket = io()
+  script(src="/js/chat.js")   

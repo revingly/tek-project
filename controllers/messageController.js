@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const Message = mongoose.model('Message');
+const Message = require('../models/messages');
 
 
-exports.createMessage = (req, res) => {
+exports.createMessage = (data) => {
 	const message = new Message({messageText: req.body.message});
 	message.createdAt = Date.now();
 	message.author = req.user._id;
-	message.save(function(err){
-		if(err) return res.send(err);
-		res.send('message ok');
+	message.save(function(err, msg){
+		if(err) return err;
+		return msg;
 	});
 };

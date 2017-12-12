@@ -25,7 +25,6 @@ const userSchema = new Schema({
   tags: [
   {type: String, ref: 'Tag'}
   ],
-  roles: [{type: String}],
   status: {
     type: String,
     default: 'active'
