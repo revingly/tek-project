@@ -17,13 +17,14 @@ mixin post(post)
        
     .box-body
       p.markdown-content= post.text
-      img.img-responsive.pad(src='dist/img/photo2.png')
       - const userlikes = user.likes.map(obj => obj.toString())
       - const likeClass = userlikes.includes(post._id.toString()) ? 'btn-success' : ''
-      button.btn.btn-default.btn-xs(name="like" data-id= post._id class= likeClass)
+      button.btn.btn-default.btn-xs.like(name="like" data-id= post._id class= likeClass)
         i.fa.fa-thumbs-o-up
         | &nbsp; like
-      button.btn.btn-default.btn-xs(name="dislike" data-id= post._id)
+      - const userdislikes = user.dislikes.map(obj => obj.toString())
+      - const dislikeClass = userdislikes.includes(post._id.toString()) ? 'btn-danger' : ''
+      button.btn.btn-default.btn-xs.dislike(name="dislike" data-id= post._id class= dislikeClass)
         i.fa.fa-thumbs-o-down
         | &nbsp; dislike
     if post.comments

@@ -46,5 +46,6 @@ router.get('/search', authController.isLoggedIn,  errorHandlers.catchErrors(user
 
 //reactions api
 router.post('/api/post/:id/like', errorHandlers.catchErrors(userController.like));
+router.post('/api/post/:id/dislike', errorHandlers.catchErrors(userController.dislike));
 
 module.exports = router;

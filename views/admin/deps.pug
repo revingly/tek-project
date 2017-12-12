@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  section.container-fluid
+      h1 Departments
+      button.btn.btn-primary(data-toggle="modal" data-target="#myModal") new department
+      .box
+        .box-body 
+          table.table.table-hover()
+            tbody
+                th name
+                th options
+            if deps.length > 0
+              each dep in deps
+                tr
+                  td #{dep.name}
+                  td delete | edit
+
+  #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")
+      .modal-dialog(role="document")
+        .modal-content
+          .modal-header
+            button.close(type="button", data-dismiss="modal", aria-label="Close")
+              span(aria-hidden="true") ×
+            h4#myModalLabel.modal-title Create new department
+          .modal-body
+            form(method="post")
+              .form-group
+                input.form-control(type="text" placeholder="create a new tag" name="name")
+                input.form-control.btn.btn-primary(type="submit")
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Close

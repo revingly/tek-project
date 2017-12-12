@@ -36,6 +36,9 @@ const userSchema = new Schema({
   likes: [
     { type: mongoose.Schema.ObjectId, ref: 'Post'}
   ],
+  dislikes: [
+    { type: mongoose.Schema.ObjectId, ref: 'Post'}
+  ],
 
   resetPasswordToken: String,
   resetPasswordExpires: Date,
@@ -44,5 +47,17 @@ const userSchema = new Schema({
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
+
+userSchema.virtual('classes', {
+  ref: 'Classe',
+  localField: '_id',
+  foreignField: 'user'
+});
+
+userSchema.virtual('subjects', {
+  ref: 'Subject',
+  localField: '_id',
+  foreignField: 'user'
+});
 
 module.exports = mongoose.model('User', userSchema);

@@ -75,6 +75,7 @@ exports.createTag = (req, res) => {
 //library
 exports.getBooks = (req, res) => {
 	res.render('books', {title: "library"});
+	
 }
 
 //courses controls
@@ -100,3 +101,14 @@ exports.like = async (req, res) => {
   );
   res.json(user);
 }
+
+exports.dislike = async (req, res) => {
+	const dislikes = req.user.dislikes.map(obj => obj.toString());
+	const operator = dislikes.includes(req.params.id) ? '$pull' : '$addToSet';
+	const user = await User
+	.findByIdAndUpdate(req.user._id,
+		{ [operator]: {dislikes: req.params.id}},
+		{new: true}
+	);
+	res.json(user);
+};
