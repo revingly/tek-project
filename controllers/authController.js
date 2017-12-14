@@ -2,7 +2,6 @@ const passport = require('passport');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
-const promisify = require('es6-promisify');
 
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
@@ -32,3 +31,8 @@ exports.isAdmin = (req, res, next) => {
   res.redirect('/');
 };
 
+exports.isTeacher = (req, res, next) => {
+  if (req.user && req.user.tags.includes("teacher")) return next();
+  req.flash('error', 'not allowed to see this page');
+  res.redirect('/');
+};

@@ -5,11 +5,12 @@ const userController = require('../controllers/userController');
 const messageController = require('../controllers/messageController');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
-const errorHandlers = require('../handlers/errorHandlers');
+const classController = require('../controllers/classesController');
+const { catchErrors } = require('../handlers/errorHandlers');
 
 // Do work here
-router.get('/', authController.isLoggedIn, errorHandlers.catchErrors(userController.index));
-router.post('/', errorHandlers.catchErrors(postController.createPost));
+router.get('/', authController.isLoggedIn, catchErrors(userController.index));
+router.post('/', catchErrors(postController.createPost));
 router.get('/events', authController.isLoggedIn, (req, res) => res.render('calendar'));
 router.get('/chat', authController.isLoggedIn, userController.chat);
 
@@ -26,7 +27,7 @@ router.get('/logout', authController.logout);
 router.get('/contact', authController.isLoggedIn, userController.contact);
 router.post('/contact', authController.isLoggedIn, userController.sendEmail);
 
-router.post('/comment/:id', errorHandlers.catchErrors(commentController.createComment));
+router.post('/comment/:id', catchErrors(commentController.createComment));
 
 router.get('/calendar', authController.isLoggedIn, (req, res) => { res.render('calendar')});
 router.get('/mail', authController.isLoggedIn, (req, res) => { res.render('mail')});
@@ -42,10 +43,13 @@ router.get('/courses', authController.isLoggedIn, userController.getCourses);
 router.get('/library', authController.isLoggedIn, userController.getBooks);
 
 //search
-router.get('/search', authController.isLoggedIn,  errorHandlers.catchErrors(userController.search));
+router.get('/search', authController.isLoggedIn,  catchErrors(userController.search));
+
+//teacher routes
+router.get('/my-classes', authController.isLoggedIn, authController.isTeacher, classController.getClassesByTeacher);
 
 //reactions api
-router.post('/api/post/:id/like', errorHandlers.catchErrors(userController.like));
-router.post('/api/post/:id/dislike', errorHandlers.catchErrors(userController.dislike));
+router.post('/api/post/:id/like', catchErrors(userController.like));
+router.post('/api/post/:id/dislike', catchErrors(userController.dislike));
 
 module.exports = router;

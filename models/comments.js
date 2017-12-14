@@ -11,14 +11,17 @@ const commentSchema = new Schema({
   post: {
     type: mongoose.Schema.ObjectId,
     ref: 'Post',
-    required: 'you must supply a post'
+    required: 'you must supply a post id'
   },
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: 'you must be logged in to comment'
   },
-  created: Date,
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 

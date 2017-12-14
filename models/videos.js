@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Schema = mongoose.Schema;
 
-const courseSchema = new Schema({
+const videoSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -22,4 +22,4 @@ const courseSchema = new Schema({
   available: String
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+module.exports = mongoose.model('Course', videoSchema);

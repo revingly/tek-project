@@ -26,7 +26,7 @@ require('./models/messages');
 require('./models/posts');
 require('./models/emails');
 require('./models/comments');
-require('./models/courses');
+require('./models/videos');
 require('./models/books');
 require('./models/departments');
 require('./models/classes');

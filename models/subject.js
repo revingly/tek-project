@@ -11,10 +11,20 @@ const subjectSchema = new Schema({
     type: Number,
     required: 'please enter subject hours',
   },
+  absence: {
+    type: Number,
+    defauls: 0
+  },
   user: [{
     type: mongoose.Schema.ObjectId,
     ref: 'User'
+  }],
+  department: [{
+    type: String,
+    ref: 'Department',
+    required: true
   }]
 });
+
 
 module.exports = mongoose.model('Subject', subjectSchema);

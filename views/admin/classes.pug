@@ -9,11 +9,13 @@ block content
           table.table.table-hover()
             tbody
                 th name
+                th department
                 th options
             if classes.length > 0
               each classe in classes
                 tr
                   td #{classe.name}
+                  td #{classe.department.name}
                   td delete | edit
 
   #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")

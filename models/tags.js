@@ -9,7 +9,10 @@ const tagSchema = new Schema({
 		trim: true,
     unique: true
 	},
-	createdAt: Date
+	createdAt: {
+		type: Date,
+		default: Date.now
+	}
 });
 
 

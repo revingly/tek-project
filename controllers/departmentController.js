@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Department = mongoose.model('Department');
+const Classe = mongoose.model('Classe');
+const Subject = mongoose.model('Subject');
 
 //department crud
 exports.getDepartments = async (req, res) => {
@@ -30,4 +32,10 @@ exports.deleteDepartment = async (req, res) => {
       {_id: req.params.id}
     );
   res.redirect('back');
+}
+
+//other functions
+exports.getDepartmentById = async (req, res) => {
+  const dep = await Department.findById({_id: req.params.id}).populate('classes');
+  res.render('admin/department', {dep});
 }

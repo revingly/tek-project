@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   section.container-fluid
-      h1 Classes
+      h1 Subjects
       button.btn.btn-primary(data-toggle="modal" data-target="#myModal") new subject
       .box
         .box-body 
@@ -10,12 +10,16 @@ block content
             tbody
                 th name
                 th hours
+                th department(s)
                 th options
             if subjects.length > 0
               each subject in subjects
                 tr
                   td #{subject.name}
                   td #{subject.hours}
+                  td 
+                    each department in subject.department
+                      | #{department.name}
                   td delete | edit
 
   #myModal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel")

@@ -1,51 +1,53 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-const authController = require('../controllers/authController');
-const errorHandlers = require('../handlers/errorHandlers');
+const { isLoggedIn, isAdmin } = require('../controllers/authController');
+const { catchErrors } = require('../handlers/errorHandlers');
 const departmentController = require('../controllers/departmentController');
 const classesController = require('../controllers/classesController');
 const subjectController = require('../controllers/subjectController');
 
-router.get('/', authController.isLoggedIn, authController.isAdmin, adminController.dashboard);
-router.get('/register', authController.isLoggedIn, adminController.register);
+router.get('/', isLoggedIn, isAdmin, adminController.dashboard);
+router.get('/register', isLoggedIn, adminController.register);
 router.post('/register', adminController.createUser);
-router.get('/students', authController.isLoggedIn,   adminController.getStudents);
-router.post('/students/:id/lock', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.lockStudent));
-router.post('/students/:id/unlock', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.unlockStudent));
-router.post('/students/:id/delete', authController.isLoggedIn,  errorHandlers.catchErrors(adminController.deleteStudent));
-router.post('/students/:id/edit', authController.isLoggedIn,  adminController.updateStudent);
-router.get('/emails', authController.isLoggedIn,   adminController.getEmails);
-router.get('/teachers', authController.isLoggedIn,   adminController.getTeachers);
-router.get('/events', authController.isLoggedIn,   adminController.getEvents);
+router.get('/students', isLoggedIn, adminController.getStudents);
+router.post('/students/:id/lock', isLoggedIn, catchErrors(adminController.lockStudent));
+router.post('/students/:id/unlock', isLoggedIn, catchErrors(adminController.unlockStudent));
+router.post('/students/:id/delete', isLoggedIn, catchErrors(adminController.deleteStudent));
+router.post('/students/:id/edit', isLoggedIn,  adminController.updateStudent);
+router.get('/emails', isLoggedIn, adminController.getEmails);
+router.get('/teachers', isLoggedIn, adminController.getTeachers);
+router.get('/events', isLoggedIn, adminController.getEvents);
 //books
-router.get('/books', authController.isLoggedIn, 
-            authController.isAdmin, errorHandlers.catchErrors(adminController.getBooks));
-router.post('/books', authController.isLoggedIn, 
-            authController.isAdmin, adminController.createBook);
+router.get('/books', isLoggedIn, 
+            isAdmin, catchErrors(adminController.getBooks));
+router.post('/books', isLoggedIn, 
+            isAdmin, adminController.createBook);
 //courses
-router.get('/books', authController.isLoggedIn, 
-            authController.isAdmin, errorHandlers.catchErrors(adminController.getCourses));
-router.post('/books', authController.isLoggedIn, 
-              authController.isAdmin, adminController.createCourse);
+router.get('/books', isLoggedIn, 
+            isAdmin, catchErrors(adminController.getCourses));
+router.post('/books', isLoggedIn, 
+              isAdmin, adminController.createCourse);
 
 //departments
-router.get('/departments', authController.isLoggedIn, authController.isLoggedIn, 
-            errorHandlers.catchErrors(departmentController.getDepartments));
-router.post('/departments', authController.isLoggedIn, authController.isLoggedIn,
-            errorHandlers.catchErrors(departmentController.createDepartment));
+router.get('/departments', isLoggedIn, isLoggedIn, 
+            catchErrors(departmentController.getDepartments));
+router.post('/departments', isLoggedIn, isLoggedIn,
+            catchErrors(departmentController.createDepartment));
+router.get('/departments/:id', isLoggedIn, isAdmin,
+            catchErrors(departmentController.getDepartmentById));
 
 //classes
-router.get('/classes', authController.isLoggedIn, authController.isAdmin,
-            errorHandlers.catchErrors(classesController.getClasses));
-router.post('/classes', authController.isLoggedIn, authController.isAdmin,
-            errorHandlers.catchErrors(classesController.createClasse));
+router.get('/departments/:id/classes', isLoggedIn, isAdmin,
+            catchErrors(classesController.getClasses));
+router.post('/departments/:id/classes', isLoggedIn, isAdmin,
+            classesController.createClasse);
 
 //subjects
-router.get('/subjects', authController.isLoggedIn, authController.isAdmin,
-            errorHandlers.catchErrors(subjectController.getSubjects));
-router.post('/subjects', authController.isLoggedIn, authController.isAdmin,
-            errorHandlers.catchErrors(subjectController.createSubject));
+router.get('/departments/:id/subjects', isLoggedIn, isAdmin,
+            catchErrors(subjectController.getSubjects));
+router.post('/departments/:id/subjects', isLoggedIn, isAdmin,
+            catchErrors(subjectController.createSubject));
 
 
 module.exports = router;
