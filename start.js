@@ -28,9 +28,9 @@ require('./models/emails');
 require('./models/comments');
 require('./models/videos');
 require('./models/books');
-require('./models/departments');
 require('./models/classes');
 require('./models/subject');
+
 // Start our app!
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);

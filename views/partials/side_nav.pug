@@ -5,9 +5,10 @@ block side_nav
           // Sidebar user panel (optional)
           .user-panel
             .pull-left.image
-              img.img-circle(src="/dist/img/user2-160x160.jpg", alt="User Image")
+              img.img-circle(src="/dist/img/user1-128x128.jpg", alt="User Image")
             .pull-left.info
-              p #{user.name}
+              if user
+                p #{user.name}
               // Status
               a(href="#")
                 i.fa.fa-circle.text-success
@@ -37,8 +38,6 @@ block side_nav
                     a(href="/admin/teachers") teachers
                   li
                     a(href="/tags") tags
-                  li
-                    a(href="/admin/departments") departments
                   li
                     a(href="/admin/classes") classes
                   li

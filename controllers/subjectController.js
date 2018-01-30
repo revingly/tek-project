@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 const Subject = mongoose.model('Subject');
-const Department = mongoose.model('Department');
 
 //subjects crud
 exports.getSubjects = async (req, res) => {
   const subjects = await Subject.find();
-  const deps = await Department.find();
   res.render('admin/subjects', {subjects, deps});
 }
 

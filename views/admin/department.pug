@@ -3,9 +3,9 @@ extends ../layout
 block content
   section.container-fluid
     h1 #{dep.name} department:
-    a(href=`/admin/departments/${dep._id}/classes`) add new classe to this department
+    a(href=`/admin/departments/${dep.name}/classes`) add new classe to this department
     br
-    a(href=`/admin/departments/${dep._id}/subjects`) add new subject to this department
+    a(href=`/admin/departments/${dep.name}/subjects`) add new subject to this department
     .row
       ul
         each subject in dep.subjects

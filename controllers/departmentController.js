@@ -39,3 +39,8 @@ exports.getDepartmentById = async (req, res) => {
   const dep = await Department.findById({_id: req.params.id}).populate('classes');
   res.render('admin/department', {dep});
 }
+
+exports.getDepartmentByName = async (req, res) => {
+  const dep = await Department.findOne({name: `${req.params.name}`}).populate('classes');
+  res.render('admin/department', {dep});
+}

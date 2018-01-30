@@ -29,6 +29,12 @@ const userSchema = new Schema({
     type: String,
     default: 'active'
   },
+  roles: [{
+    type: String,
+    required: 'please supple a role',
+    trim: true,
+    lowercase: true,
+  }],
   points: {
     type: Number,
     default: 1

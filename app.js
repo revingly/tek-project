@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const expressValidator = require('express-validator');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const path = require('path');
@@ -8,7 +9,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const promisify = require('es6-promisify');
 const flash = require('connect-flash');
-const expressValidator = require('express-validator');
+
 const indexRoutes = require('./routes/index');
 const adminRoutes = require('./routes/admin');
 

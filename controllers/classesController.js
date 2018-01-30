@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const Classe = mongoose.model('Classe');
-const Department = mongoose.model('Department');
 const User = mongoose.model('User');
+
 // classes crud
 exports.getClasses = async (req, res) => {
   const classes = await Classe.find();
-  const deps = await Department.find();
-  res.render('admin/classes', {classes, deps});
+  res.render('admin/classes', {classes});
 }
 
 exports.createClasse = async (req, res) => {
-  req.body.department = req.params.id;
   const classe = new Classe(req.body);
   classe.save()
   .then(cls => {
@@ -42,4 +40,28 @@ exports.getClassesByTeacher = async (req, res) => {
   const myclasses = await Classe.getClassesByTeacher();
   // const myclasses = await User.findById({_id: req.user.id}).populate('classes');
   res.json(myclasses);
+}
+
+exports.getClasseStudents = (req, res) => {
+  const name = req.params.name;
+  Classe.findOne({name: `${name}`})
+    .then(rs => res.render('admin/classe_details', {rs}))
+    .catch(err => res.json(err));
+}
+
+exports.getClasseSubjects = (req, res) => {
+  const name = req.params.name;
+  Classe.find({name: `${name}`})
+    .then(rs => res.json(rs))
+    .catch(err => res.json(err));
+}
+
+exports.addStudentsToClasse = (req, res) => {
+  const name = req.params.name;
+  const studentsId = req.body.students;
+  Classe.update(
+    {name: name},
+    {$push: {students: {$each : studentsId }}})
+    .then(rs => res.json(rs))
+    .catch(err => res.json(err));
 }

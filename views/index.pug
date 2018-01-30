@@ -1,5 +1,7 @@
 extends layout
 include mixins/_post
+block append css
+  link(rel="stylesheet", href="/css/simplemde.min.css")
 
 block content
   // Main content
@@ -16,7 +18,6 @@ block content
         .box-header
           .box-title Write Something
           .pull-right.box-tools
-            a.btn.btn-sm(href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target='_blank') markdown code
             button.btn.btn-sm.btn-info(data-toggle="tooltip" data-widget="collapse" title="collapse")
               i.fa.fa-minus
         .box-body.pad
@@ -40,6 +41,9 @@ block content
 block append js
   script(src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.7/marked.min.js")
   script(src="/select2/dist/js/select2.full.min.js")
+  script(src="/js/reaction.js")
+  script(src="https://unpkg.com/axios/dist/axios.min.js")
+  script(src="/js/simplemde.min.js")
   script.
     $(function () {
       $('.markdown-content').each(function(){
@@ -48,6 +52,8 @@ block append js
         $(this).html(markedpost);
       });
       $('.select2').select2();
+      var simplemde = new SimpleMDE({
+        hideIcons: ["side-by-side", "fullscreen"],
+      })
     });
-  script(src="/js/reaction.js")
-  script(src="https://unpkg.com/axios/dist/axios.min.js")
+  
